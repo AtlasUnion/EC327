@@ -1,5 +1,3 @@
-// Copyright 2017 EC327/Carruthers jbc@bu.edu
-
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -30,30 +28,18 @@ bool isBlank(String test) {
   return true;
 }
 
-std::vector<std::string> rotate(vector<std::string> test) {
-  char temp('\0');
-  for (int x = 0; x < test.size() / 2; x++)
-    {
-        // Consider elements in group of 4 in
-        // current square
-        for (int y = x; y < test.size()-x-1; y++)
-        {
-            // store current cell in temp variable
-            temp = test[x][y];
-            // move values from right to top
-            test[x][y] = test[y][test.size()-1-x];
-            // move values from bottom to right
-            test[y][test.size()-1-x] = test[test.size()-1-x][test.size()-1-y];
-            // move values from left to bottom
-            test[test.size()-1-x][test.size()-1-y] = test[test.size()-1-y][x];
-            // assign temp to left
-            test[test.size()-1-y][x] = temp;
-        }
-    }
-  return test;
+std::vector<std::string> rotate(vector<std::string> test) { //tested
+    std::string base(test.size(), '.');
+    std::vector<std::string> mirror(test[0].size(), base);
+    for (int i=0; i<test.size(); i++){
+      for (int j=0;j<test[i].size(); j++){
+          mirror [j][test.size()-1-i] = test[i][j];
+      }
+   }
+    return mirror;
 }
 
-std::vector<std::string> mirror(std::vector<std::string> test) {
+std::vector<std::string> mirror(std::vector<std::string> test) { //have not test for MxN matrix
   int ii, jj;
   std::string base(5, '.');
   std::vector<std::string> mirror(5, base);
