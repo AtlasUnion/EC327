@@ -28,46 +28,64 @@ bool isBlank(String test) {
   return true;
 }
 
-std::vector<std::string> rotate(vector<std::string> test) { //tested
-    std::string base(test.size(), '.');
-    std::vector<std::string> mirror(test[0].size(), base);
-    for (int i=0; i<test.size(); i++){
-      for (int j=0;j<test[i].size(); j++){
-          mirror [j][test.size()-1-i] = test[i][j];
-      }
-   }
-    return mirror;
+void rotate(std::vector<std::string> &test) {
+  char temp('\0');
+  std::string base(test.size(), '.');
+  std::vector<std::string> mirror(test[0].size(), base);
+  for (int i=0; i<test.size(); i++){
+	for (int j=0;j<test[i].size(); j++){
+		mirror [j][test.size()-1-i] = test[i][j];
+    }
+}
+  test = mirror;
 }
 
-std::vector<std::string> mirror(std::vector<std::string> test) { //have not test for MxN matrix
+void mirror(std::vector<std::string> &test) { //have not test for MxN matrix
   int ii, jj;
-  std::string base(5, '.');
-  std::vector<std::string> mirror(5, base);
+  std::vector<std::string> mirror1 = test;
   for(int i=0; i<test.size(); i++)
     {
-       for(int j=0; j<test.size(); j++)
+       for(int j=0; j<test[i].size(); j++)
        {
           ii = i;
-          jj = test.size() - 1 - j;
-          mirror[i][j]=test[ii][jj];
+          jj = test[i].size() - 1 - j;
+          mirror1[i][j]=test[ii][jj];
        }
     }
-    return mirror;
+    test = mirror1;
 }
 
-vector<std::string> removeBlankLine(vector<std::string> test) {
-  for (int i = 0; i < test.size(); i++) {
+void removeBlankLine(vector<std::string> &test) {
+  for (int i = 0; i < test.size();) {
     if (isBlank(test.at(i))) {
-      test.erase(i);
+      test.erase(test.begin()+i);
+    }
+    else {
+        i++;
     }
   }
-  vector<std::string> test2 = rotate(test);
-  for (int i = 0; i < test2.size(); i++) {
-    if (isBlank(test2.at(i))) {
-      test2.erase(i);
+  rotate(test);
+  for (int i = 0; i < test.size();) {
+    if (isBlank(test.at(i))) {
+      test.erase(test.begin()+i);
+    }
+    else {
+        i++;
     }
   }
-  return test2;
+}
+
+bool checkUnique(PieceType p1, PieceType p2, ,int TSize, bool[] &uniqueMatrix) {
+    std::string base(TSize, '.');
+    vector<std::string> compare1(TSize, base);
+    vector<std::string> compare2(TSize, base);
+    for (auto const & loc : p){
+      compare1[loc.first][loc.second] = '*';
+      compare2[loc.first][loc.second] = '*';
+  }
+  removeBlankLine(compare1);
+  removeBlankLine(compare2);
+  
 }
 
 void print_piece(PieceType p, std::ostream *out, int TSize) {
