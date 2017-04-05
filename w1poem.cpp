@@ -3,6 +3,6 @@
 #include <cstdio>
 
 int main() {
-    printf("a\nbb\nccc");
+    printf("Oh,Me\nOh,Life\nOh,Emgineering\n");
     return 0;
 }

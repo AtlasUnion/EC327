@@ -9,7 +9,7 @@ int divisorsum(int n) {
     for (i = 1; i <= n; i++) {
         if (!(n % i) && i != n) {
             count++;
-            factor1 = i;
+            factor = i;
             sum = sum + factor;
             if (count == 1) {
             std::cout << n << ":" << i;
