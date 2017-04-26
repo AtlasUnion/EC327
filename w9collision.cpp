@@ -73,6 +73,7 @@ int main() {
   vector< collisionOfCars > collision;      // all possible collision
   vector < collisionOfCars > collisionResult;     // result of collision
   string ID;
+  int count = 0;
   double x, y, xVel, yVel;
   while (cin >> ID >> x >> y >> xVel >> yVel) {
     collection.push_back(Car(ID, x, y, xVel, yVel, false));
@@ -85,13 +86,15 @@ int main() {
       double result = willCollide(&collection[i], &collection[j]);
       // one.stop();
       if (result != -1) {
-        collisionOfCars in{&collection[i], &collection[j], result};
+        collisionOfCars in = {&collection[i], &collection[j], result};
         collision.push_back(in);
       }
     }
   }
   // one.stop();
   sort(collision.begin(), collision.end(), tupleCompare);
+  cout << "there are " << collection.size() << " vehicles" << "\n";
+  cout << "collision report" << "\n";
   for (int k = 0; k < collision.size(); k++) {
     bool a = collision[k].firstCar->collided;
     bool b = collision[k].secondCar->collided;
@@ -99,18 +102,15 @@ int main() {
       collision[k].firstCar->collided = true;
       collision[k].secondCar->collided = true;
       collisionResult.push_back(collision[k]);
+      cout << "at " << collision[k].time << " ";
+      cout << collision[k].firstCar->ID;
+      cout << " collided with " << collision[k].secondCar->ID << "\n";
+      count++;
     }
   }
-  cout << "there are " << collection.size() << " vehicles" << "\n";
-  cout << "collision report" << "\n";
-  if (collisionResult.size() == 0) {
+
+  if (count == 0) {
     cout << "none" << "\n";
-  } else {
-    for (int i = 0; i < collisionResult.size(); i++) {
-        cout << "at " << collisionResult[i].time << " ";
-        cout << collisionResult[i].firstCar->ID;
-        cout << " collided with " << collisionResult[i].secondCar->ID << "\n";
-    }
 }
   cout << "the remaining vehicles are" << "\n";
   if (2*collisionResult.size() == collection.size()) {
